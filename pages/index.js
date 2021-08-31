@@ -4,7 +4,6 @@ import Layout from '../components/Layout';
 import data from '../utils/data';
 
 export default function Home() {
-  console.log(data);
   return (
     <Layout>
       <div>

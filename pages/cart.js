@@ -14,6 +14,7 @@ import {
     TableRow,
     Typography
 } from '@material-ui/core';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { default as Link, default as NextLink } from 'next/link';
 import React, { useContext } from 'react';
@@ -93,8 +94,8 @@ const CartScreen = () => {
                 </Table>
               </TableContainer>
             </Grid>
-            <Grid md={3} xs={12}>
-              <Card>
+            <Grid item md={3} xs={12}>
+              <Card >
                   <List>
                       <ListItem>
                           <Typography variant='h2'>
@@ -114,4 +115,4 @@ const CartScreen = () => {
   );
 };
 
-export default CartScreen;
+export default dynamic(() => Promise.resolve(CartScreen), {ssr: false}) ;

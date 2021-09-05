@@ -26,6 +26,10 @@ const useStyles = makeStyles({
     footer:{
         textAlign: 'center'
     },
+    form:{
+        maxWidth: 800,
+        margin: '0 auto'
+    }
     
 })
 

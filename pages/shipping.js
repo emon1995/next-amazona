@@ -17,7 +17,7 @@ const Shipping = () => {
   const router = useRouter();
   const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
-  const { userInfo, cart: {shippingAddress}, } = state;
+  
 
   const {
     handleSubmit,
@@ -25,6 +25,11 @@ const Shipping = () => {
     formState: { errors },
     setValue,
   } = useForm();
+
+  const {
+    userInfo,
+    cart: { shippingAddress },
+  } = state;
 
   useEffect(() => {
     if (!userInfo) {
@@ -38,36 +43,44 @@ const Shipping = () => {
   }, []);
 
   const classes = useStyles();
-
-  const submitHandler = async ({fullName, address, city, postalCode, country}) => {
-      dispatch({ type: 'SAVE_SHIPPING_ADDRESS', payload: {fullName, address, city, postalCode, country} });
-      Cookies.set('userInfo', {fullName, address, city, postalCode, country});
-      router.push('/payment');
+  const submitHandler = ({ fullName, address, city, postalCode, country }) => {
+    dispatch({
+      type: 'SAVE_SHIPPING_ADDRESS',
+      payload: { fullName, address, city, postalCode, country },
+    });
+    Cookies.set('shippingAddress', {
+      fullName,
+      address,
+      city,
+      postalCode,
+      country,
+    });
+    router.push('/payment');
   };
 
   return (
-    <Layout title='Shipping Address'>
-        <CheckoutWizard activeStep={1} />
+    <Layout title="Shipping Address">
+      <CheckoutWizard activeStep={1} />
       <form onSubmit={handleSubmit(submitHandler)} className={classes.form}>
-        <Typography component='h1' variant='h1'>
+        <Typography component="h1" variant="h1">
           Shipping Address
         </Typography>
         <List>
           <ListItem>
             <Controller
-              name='fullName'
+              name="fullName"
               control={control}
-              defaultValue=''
+              defaultValue=""
               rules={{
                 required: true,
-                minLength: 4,
+                minLength: 2,
               }}
               render={({ field }) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   fullWidth
-                  id='fullName'
-                  label='Full Name'
+                  id="fullName"
+                  label="Full Name"
                   error={Boolean(errors.fullName)}
                   helperText={
                     errors.fullName
@@ -76,25 +89,26 @@ const Shipping = () => {
                         : 'Full Name is required'
                       : ''
                   }
-                  {...field}></TextField>
-              )}></Controller>
+                  {...field}
+                ></TextField>
+              )}
+            ></Controller>
           </ListItem>
-
           <ListItem>
             <Controller
-              name='address'
+              name="address"
               control={control}
-              defaultValue=''
+              defaultValue=""
               rules={{
                 required: true,
-                minLength: 4,
+                minLength: 2,
               }}
               render={({ field }) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   fullWidth
-                  id='address'
-                  label='Address'
+                  id="address"
+                  label="Address"
                   error={Boolean(errors.address)}
                   helperText={
                     errors.address
@@ -103,25 +117,26 @@ const Shipping = () => {
                         : 'Address is required'
                       : ''
                   }
-                  {...field}></TextField>
-              )}></Controller>
+                  {...field}
+                ></TextField>
+              )}
+            ></Controller>
           </ListItem>
-
           <ListItem>
             <Controller
-              name='city'
+              name="city"
               control={control}
-              defaultValue=''
+              defaultValue=""
               rules={{
                 required: true,
-                minLength: 4,
+                minLength: 2,
               }}
               render={({ field }) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   fullWidth
-                  id='city'
-                  label='City'
+                  id="city"
+                  label="City"
                   error={Boolean(errors.city)}
                   helperText={
                     errors.city
@@ -130,25 +145,26 @@ const Shipping = () => {
                         : 'City is required'
                       : ''
                   }
-                  {...field}></TextField>
-              )}></Controller>
+                  {...field}
+                ></TextField>
+              )}
+            ></Controller>
           </ListItem>
-
           <ListItem>
             <Controller
-              name='postalCode'
+              name="postalCode"
               control={control}
-              defaultValue=''
+              defaultValue=""
               rules={{
                 required: true,
-                minLength: 4,
+                minLength: 2,
               }}
               render={({ field }) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   fullWidth
-                  id='postalCode'
-                  label='Postal Code'
+                  id="postalCode"
+                  label="Postal Code"
                   error={Boolean(errors.postalCode)}
                   helperText={
                     errors.postalCode
@@ -157,25 +173,26 @@ const Shipping = () => {
                         : 'Postal Code is required'
                       : ''
                   }
-                  {...field}></TextField>
-              )}></Controller>
+                  {...field}
+                ></TextField>
+              )}
+            ></Controller>
           </ListItem>
-
           <ListItem>
             <Controller
-              name='country'
+              name="country"
               control={control}
-              defaultValue=''
+              defaultValue=""
               rules={{
                 required: true,
-                minLength: 4,
+                minLength: 2,
               }}
               render={({ field }) => (
                 <TextField
-                  variant='outlined'
+                  variant="outlined"
                   fullWidth
-                  id='country'
-                  label='Country'
+                  id="country"
+                  label="Country"
                   error={Boolean(errors.country)}
                   helperText={
                     errors.country
@@ -184,12 +201,13 @@ const Shipping = () => {
                         : 'Country is required'
                       : ''
                   }
-                  {...field}></TextField>
-              )}></Controller>
+                  {...field}
+                ></TextField>
+              )}
+            ></Controller>
           </ListItem>
-
           <ListItem>
-            <Button variant='contained' type='submit' fullWidth color='primary'>
+            <Button variant="contained" type="submit" fullWidth color="primary">
               Continue
             </Button>
           </ListItem>
@@ -197,6 +215,6 @@ const Shipping = () => {
       </form>
     </Layout>
   );
-};
+}
 
 export default Shipping;

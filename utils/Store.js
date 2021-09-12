@@ -50,7 +50,7 @@ function reducer(state, action) {
       return { ...state, userInfo: action.payload };
     }
     case 'USER_LOGOUT': {
-      return { ...state, userInfo: null, cart: { cartItems: [] } };
+      return { ...state, userInfo: null, cart: { cartItems: [], shippingAddress: {}, paymentMethod: '' } };
     }
     case 'SAVE_SHIPPING_ADDRESS':
       return {
@@ -62,6 +62,12 @@ function reducer(state, action) {
         ...state,
         cart: { ...state.cart, paymentMethod: action.payload },
       };
+    }
+    case 'CART_CLEAR':{
+        return {
+            ...state,
+            cart: {...state.cart, cartItems: []}
+        }
     }
     default:
       return state;
